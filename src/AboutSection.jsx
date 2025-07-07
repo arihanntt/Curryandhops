@@ -1,25 +1,42 @@
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const AboutSection = () => {
   const bgImage =
     'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1740&q=80';
 
+  const [offsetY, setOffsetY] = useState(0);
+  const bgRef = useRef(null);
+
+  // 👇 Mobile fallback parallax effect
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth < 768) {
+        setOffsetY(window.scrollY * 0.25); // Adjust parallax strength
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section
       id="about"
+      ref={bgRef}
       className="relative text-white py-32 px-6 sm:px-12 lg:px-24 overflow-hidden bg-[#0B131F]"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: window.innerWidth < 768 ? `center ${offsetY}px` : 'center',
+        backgroundAttachment: window.innerWidth >= 768 ? 'fixed' : 'scroll',
       }}
     >
-      {/* Darker Blur Overlay */}
+      {/* Darker Overlay */}
       <div className="absolute inset-0 bg-black/90 backdrop-blur-md z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
-        {/* Text Side */}
+        {/* Text Block */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -52,7 +69,7 @@ const AboutSection = () => {
           </div>
         </motion.div>
 
-        {/* 3D Badge */}
+        {/* Animated 3D Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
           whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}

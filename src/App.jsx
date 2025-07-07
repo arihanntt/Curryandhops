@@ -8,6 +8,7 @@ import ContactSection from './ContactSection';
 import Footer from './Footer';
 import ReserveSection from './ReserveSection';
 import Loader from './Loader';
+import ChatButton from './ChatButton'; // 👈 import it
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,6 +39,7 @@ function App() {
           <ReserveSection />
           <ContactSection />
         </main>
+        <ChatButton />  {/* 👈 Insert here */}
         <Footer />
       </div>
     </>

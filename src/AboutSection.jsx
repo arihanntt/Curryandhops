@@ -1,28 +1,14 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import aboutImg from './assets/about-image.jpg';
 
 const AboutSection = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const parallaxOffset = scrollY * 0.1;
-
   return (
     <section
       id="about"
       className="relative text-white py-28 px-6 sm:px-10 lg:px-20 overflow-hidden bg-[#0B131F]"
     >
-      {/* Parallax Gradient Overlay */}
-      <div
-        className="absolute inset-0 bg-black/30 backdrop-blur-sm group-hover:bg-black/10 transition-all duration-500 z-10"
-        style={{ transform: `translateY(${parallaxOffset}px)` }}
-      ></div>
+      {/* Static Gradient Overlay */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm z-10 transition-all duration-500 pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
         {/* Text Content */}

@@ -36,14 +36,10 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative h-screen w-full text-white overflow-hidden flex items-center justify-center scroll-smooth"
-      style={{
-        backgroundImage: `url(${heroImage})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed',
-      }}
-    >
+  className="relative h-screen w-full text-white overflow-hidden flex items-center justify-center scroll-smooth bg-no-repeat bg-cover bg-center md:bg-fixed"
+  style={{ backgroundImage: `url(${heroImage})` }}
+>
+
       {/* Gradient & Glass Overlays */}
       <div className="absolute inset-0 bg-black/60 z-10" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 z-10" />

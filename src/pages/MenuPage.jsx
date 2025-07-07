@@ -20,25 +20,21 @@ export default function MenuPageSplitLayout() {
 
   return (
     <div
-      className="min-h-screen text-offWhite"
+      className="min-h-screen text-offWhite bg-fixed"
       style={{
         backgroundImage:
           "linear-gradient(to bottom, rgba(15, 25, 39, 0.88), rgba(15, 25, 39, 0.95)), url('https://www.transparenttextures.com/patterns/paper-fibers.png')",
         backgroundColor: '#0F1927',
         backgroundBlendMode: 'overlay',
-        backgroundAttachment: 'fixed',
       }}
     >
-      {/* Fixed Header */}
       <div className="fixed top-0 left-0 w-full z-[60] bg-darkBlue/80 backdrop-blur shadow-md">
         <Header />
       </div>
 
-      {/* Spacer for Header */}
       <div className="h-24"></div>
 
       <div className="px-4 sm:px-6 py-12 md:px-12 lg:px-32">
-        {/* Top Controls */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -52,17 +48,15 @@ export default function MenuPageSplitLayout() {
             ← Back to Home
           </Link>
 
-          {/* Search Bar */}
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search dishes..."
-            className="bg-darkBlue/50 border border-offWhite/20 text-sm px-4 py-2 rounded-full placeholder-gray-400 text-offWhite focus:outline-none focus:border-burntYellow w-full sm:w-64"
+            className="bg-darkBlue/50 border border-offWhite/20 text-sm px-4 py-2 rounded-full placeholder-gray-400 text-offWhite focus:outline-none focus:border-burntYellow w-full sm:w-64 shadow-inner"
           />
         </motion.div>
 
-        {/* Diet Type Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,10 +67,10 @@ export default function MenuPageSplitLayout() {
             <button
               key={type}
               onClick={() => setDietType(type)}
-              className={`px-4 py-2 rounded-full border text-sm transition ${
+              className={`px-4 py-2 rounded-full border text-sm font-medium transition backdrop-blur-md shadow-md ${
                 dietType === type
-                  ? 'bg-burntYellow text-darkBlue'
-                  : 'text-offWhite border-offWhite/20 hover:border-burntYellow'
+                  ? 'bg-burntYellow text-darkBlue shadow-lg scale-105'
+                  : 'text-offWhite border-offWhite/20 hover:border-burntYellow hover:scale-105'
               }`}
             >
               {type}
@@ -84,7 +78,6 @@ export default function MenuPageSplitLayout() {
           ))}
         </motion.div>
 
-        {/* Meal Time Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -95,10 +88,10 @@ export default function MenuPageSplitLayout() {
             <button
               key={meal}
               onClick={() => setMealTime(meal)}
-              className={`px-4 py-2 rounded-full border text-sm transition ${
+              className={`px-4 py-2 rounded-full border text-sm font-medium transition backdrop-blur-md shadow-md ${
                 mealTime === meal
-                  ? 'bg-burntYellow text-darkBlue'
-                  : 'text-offWhite border-offWhite/20 hover:border-burntYellow'
+                  ? 'bg-burntYellow text-darkBlue shadow-lg scale-105'
+                  : 'text-offWhite border-offWhite/20 hover:border-burntYellow hover:scale-105'
               }`}
             >
               {meal}
@@ -106,7 +99,6 @@ export default function MenuPageSplitLayout() {
           ))}
         </motion.div>
 
-        {/* Page Title */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -116,7 +108,6 @@ export default function MenuPageSplitLayout() {
           Explore Our Menu
         </motion.h1>
 
-        {/* Menu Items */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {Object.entries(menuData).map(([category, items], index) => {
             const filtered = filterItems(items);
@@ -129,16 +120,16 @@ export default function MenuPageSplitLayout() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: index * 0.1 }}
                 viewport={{ once: true, amount: 0.2 }}
+                className="bg-darkBlue/60 backdrop-blur-md rounded-2xl p-6 shadow-lg hover:shadow-xl hover:scale-[1.02] transform transition-all duration-300 border border-white/10"
               >
                 <h2 className="text-2xl font-semibold text-burntYellow border-b border-burntYellow pb-2 mb-6">
                   {category}
                 </h2>
-
                 <ul className="space-y-5">
                   {filtered.map((item, idx) => (
                     <li
                       key={idx}
-                      className="group transition-all duration-300 border-b border-white/5 pb-3"
+                      className="group transition-all duration-300 border-b border-white/5 pb-3 hover:bg-darkBlue/40 rounded-md px-3"
                     >
                       <div className="flex justify-between items-center mb-1">
                         <span className="text-base sm:text-lg font-medium text-offWhite group-hover:text-burntYellow transition">

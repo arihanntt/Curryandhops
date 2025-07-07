@@ -1,7 +1,7 @@
 // === File: src/components/ReserveSection.jsx ===
 import { useState } from 'react';
-import ReserveModal from './ReserveModal';
 import { motion } from 'framer-motion';
+import ReserveModal from './ReserveModal';
 
 export default function ReserveSection() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -9,45 +9,54 @@ export default function ReserveSection() {
   return (
     <section
       id="reserve"
-      className="relative text-center py-24 sm:py-28 px-6 md:px-12 lg:px-32 bg-[#0F1927] text-offWhite overflow-hidden"
+      className="relative text-center py-32 px-6 md:px-12 lg:px-32 text-offWhite overflow-hidden"
       style={{
-        backgroundImage:
-          "linear-gradient(to bottom, rgba(15, 25, 39, 0.9), rgba(15, 25, 39, 0.95))",
+        backgroundImage: `
+          linear-gradient(to bottom, rgba(15, 25, 39, 0.95), rgba(15, 25, 39, 0.97)),
+          url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80')
+        `,
+        backgroundSize: 'cover',
+        backgroundAttachment: 'fixed',
+        backgroundPosition: 'center',
       }}
     >
-      <div className="border-t border-offWhite/10 w-full absolute top-0 left-0" />
+      {/* Sparkles overlay */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute w-[200%] h-[200%] animate-pulseSlow bg-[radial-gradient(circle,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:30px_30px] opacity-10" />
+      </div>
 
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className="text-4xl sm:text-5xl font-extrabold text-burntYellow drop-shadow-md mb-4 z-10 relative"
+      {/* Border lines */}
+      <div className="border-t border-white/10 w-full absolute top-0 left-0" />
+      <div className="border-t border-white/10 w-full absolute bottom-0 left-0" />
+
+   
+      {/* Main Card */}
+      <motion.div
+        initial={{ opacity: 0, y: 30, scale: 0.97 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+        className="relative z-10 bg-white/5 backdrop-blur-md p-10 rounded-2xl border border-white/10 max-w-2xl mx-auto shadow-xl"
       >
-        Make a Reservation
-      </motion.h2>
+        <h2 className="text-4xl sm:text-5xl font-extrabold text-burntYellow drop-shadow-md mb-6">
+          Reserve Your Experience
+        </h2>
 
-      <motion.p
-        initial={{ opacity: 0, y: 10 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-        className="max-w-xl mx-auto mb-10 text-gray-300 text-base sm:text-lg z-10 relative"
-      >
-        Planning a special evening or just craving your favorite dish? Secure your table now and let us serve you something unforgettable.
-      </motion.p>
+        <p className="max-w-xl mx-auto mb-8 text-gray-300 text-base sm:text-lg">
+          Whether you're planning a romantic dinner or a lively celebration, we’ll make it unforgettable.
+        </p>
 
-      <motion.button
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-        onClick={() => setModalOpen(true)}
-        className="bg-burntYellow text-darkBlue font-semibold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-all shadow-lg hover:scale-105 focus:outline-none z-10 relative"
-      >
-        Reserve a Table
-      </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.06 }}
+          whileTap={{ scale: 0.96 }}
+          onClick={() => setModalOpen(true)}
+          className="bg-burntYellow text-darkBlue font-semibold px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-yellow-500/30 hover:bg-yellow-400 focus:outline-none"
+        >
+          Reserve a Table
+        </motion.button>
+      </motion.div>
 
+      {/* Modal */}
       {modalOpen && <ReserveModal close={() => setModalOpen(false)} />}
-
-      <div className="border-t border-offWhite/10 w-full absolute bottom-0 left-0" />
     </section>
   );
 }

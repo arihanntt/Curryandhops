@@ -1,27 +1,36 @@
 import { motion } from 'framer-motion';
-import aboutImg from './assets/about-image.jpg';
 
 const AboutSection = () => {
+  const bgImage =
+    'https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1740&q=80';
+
   return (
     <section
       id="about"
-      className="relative text-white py-28 px-6 sm:px-10 lg:px-20 overflow-hidden bg-[#0B131F]"
+      className="relative text-white py-32 px-6 sm:px-12 lg:px-24 overflow-hidden bg-[#0B131F]"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
     >
-      {/* Static Gradient Overlay */}
-      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm z-10 transition-all duration-500 pointer-events-none" />
+      {/* Darker Blur Overlay */}
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-md z-0" />
 
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
-        {/* Text Content */}
+        {/* Text Side */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
           viewport={{ once: true }}
+          className="bg-white/5 backdrop-blur-[6px] rounded-3xl p-8 sm:p-12 border border-white/10 shadow-[0_8px_32px_0_rgba(255,255,255,0.05)] relative before:absolute before:inset-0 before:rounded-3xl before:border before:border-white/10 before:opacity-20 before:blur-xl before:pointer-events-none"
         >
           <p className="text-burntYellow text-sm tracking-widest uppercase font-semibold mb-3">
             ✨ Since 2021
           </p>
-          <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-6">
+          <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-6 drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
             Where Culinary Heritage<br />Meets Modern Craft
           </h2>
           <p className="text-offWhite/80 text-base sm:text-lg leading-relaxed mb-5">
@@ -35,7 +44,7 @@ const AboutSection = () => {
             {['Slow-Cooked Legacy', 'Award-Winning Brews', 'Chef Partnerships'].map((item, i) => (
               <span
                 key={i}
-                className="px-4 py-1.5 text-xs sm:text-sm border border-burntYellow rounded-full text-burntYellow uppercase tracking-wide"
+                className="px-4 py-1.5 text-xs sm:text-sm border border-burntYellow rounded-full text-burntYellow uppercase tracking-wide bg-white/5 backdrop-blur-sm shadow-inner"
               >
                 {item}
               </span>
@@ -43,24 +52,18 @@ const AboutSection = () => {
           </div>
         </motion.div>
 
-        {/* Image Side */}
+        {/* 3D Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
+          initial={{ opacity: 0, scale: 0.9, rotateY: -15 }}
+          whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
           viewport={{ once: true }}
-          className="relative rounded-3xl overflow-hidden shadow-lg group h-[300px] sm:h-[400px] lg:h-[480px] w-full"
+          className="hidden lg:block relative"
         >
-          <img
-            src={aboutImg}
-            alt="Culinary ambiance"
-            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-          />
-
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm group-hover:bg-black/10 transition-all duration-500 z-10" />
-
-          <div className="absolute bottom-4 right-4 z-20 bg-burntYellow text-darkBlue px-3 py-1.5 text-xs font-semibold rounded shadow uppercase tracking-wide">
-            Est. 2021
+          <div className="w-[320px] h-[320px] mx-auto rounded-full bg-gradient-to-br from-burntYellow via-yellow-100 to-white/20 shadow-[0_0_80px_rgba(255,255,255,0.15)] p-[3px] animate-[float_6s_ease-in-out_infinite]">
+            <div className="flex items-center justify-center w-full h-full bg-[#0F1927]/70 text-burntYellow font-extrabold text-3xl rounded-full border border-burntYellow/30 tracking-widest shadow-inner backdrop-blur-md">
+              Est. 2021
+            </div>
           </div>
         </motion.div>
       </div>

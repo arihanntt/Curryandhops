@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUtensils } from 'react-icons/fa';
-
-// ✅ Your chosen static image
 import heroImage from './assets/hero-bg-1.jpg';
 
 const HeroSection = () => {
   const navigate = useNavigate();
+  const bgRef = useRef(null);
+  const [offsetY, setOffsetY] = useState(0);
 
-  // Scroll to #about if redirected
+  // Smooth scroll to section
   useEffect(() => {
     const section = localStorage.getItem('scrollTo');
     if (section) {
@@ -22,31 +22,44 @@ const HeroSection = () => {
     }
   }, []);
 
+  // 🔁 Mobile parallax fallback
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth < 768) {
+        setOffsetY(window.scrollY * 0.25); // Adjust for parallax strength
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleScrollToAbout = () => {
     if (window.location.pathname !== '/') {
       localStorage.setItem('scrollTo', 'about');
       navigate('/');
     } else {
       const about = document.getElementById('about');
-      if (about) {
-        about.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (about) about.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <section
-  className="relative h-screen w-full text-white overflow-hidden flex items-center justify-center scroll-smooth bg-no-repeat bg-cover bg-center md:bg-fixed"
-  style={{ backgroundImage: `url(${heroImage})` }}
->
-
-      {/* Gradient & Glass Overlays */}
-      <div className="absolute inset-0 bg-black/60 z-10" />
+      id="top"
+      className="relative h-screen w-full text-white overflow-hidden flex items-center justify-center scroll-smooth bg-no-repeat bg-cover bg-center md:bg-fixed"
+      style={{
+        backgroundImage: `url(${heroImage})`,
+        backgroundPositionY: window.innerWidth < 768 ? `${offsetY}px` : 'center'
+      }}
+      ref={bgRef}
+    >
+      {/* Overlays */}
+      <div className="absolute inset-0 bg-black/70 z-10" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/70 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/30 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/30 z-10" />
       <div className="absolute inset-0 backdrop-blur-sm z-10" />
 
-      {/* Hero Text */}
+      {/* Hero Content */}
       <div className="relative z-30 text-center max-w-4xl px-6 animate-fade-up animate-delay-500">
         <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-burntYellow mb-3 drop-shadow-md">
           A Flavor Revolution
@@ -68,7 +81,7 @@ const HeroSection = () => {
       </div>
 
       {/* Feature Tags */}
-      <div className="absolute bottom-24 w-full z-30 hidden md:flex flex-wrap justify-center gap-4 px-4 text-sm max-w-6xl mx-auto">
+      <div className="absolute bottom-24 w-full z-30 flex flex-wrap justify-center gap-4 px-4 text-sm max-w-6xl mx-auto">
         {[
           { icon: '🍸', label: 'Signature Cocktails' },
           { icon: '🍢', label: 'Modern Tandoori Tapas' },

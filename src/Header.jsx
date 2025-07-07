@@ -60,13 +60,14 @@ export default function Header() {
         </nav>
 
         {/* Center Logo */}
-        <a href="/" className="absolute left-1/2 transform -translate-x-1/2 z-50">
-          <img
-            src={Logo}
-            alt="Curry & Hops"
-            className="h-11 w-auto md:h-20"
-          />
-        </a>
+        <button
+  onClick={() => scrollOrNavigate('top')}
+  className="absolute left-1/2 transform -translate-x-1/2 z-50"
+>
+  <img src={Logo} alt="Curry & Hops" className="h-11 w-auto md:h-20" />
+</button>
+
+
 
         {/* Right Nav */}
         <nav className="hidden md:flex gap-16 items-center">

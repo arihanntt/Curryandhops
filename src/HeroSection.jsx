@@ -81,21 +81,22 @@ const HeroSection = () => {
       </div>
 
       {/* Feature Tags */}
-      <div className="absolute bottom-24 w-full z-30 flex flex-wrap justify-center gap-4 px-4 text-sm max-w-6xl mx-auto">
-        {[
-          { icon: '🍸', label: 'Signature Cocktails' },
-          { icon: '🍢', label: 'Modern Tandoori Tapas' },
-          { icon: '🎧', label: 'Live Evenings' },
-        ].map(({ icon, label }, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-white/80 hover:scale-105 transition duration-300 shadow-md"
-          >
-            <span>{icon}</span>
-            <span>{label}</span>
-          </div>
-        ))}
-      </div>
+<div className="absolute bottom-24 w-full z-30 hidden md:flex flex-wrap justify-center gap-4 px-4 text-sm max-w-6xl mx-auto">
+  {[
+    { icon: '🍸', label: 'Signature Cocktails' },
+    { icon: '🍢', label: 'Modern Tandoori Tapas' },
+    { icon: '🎧', label: 'Live Evenings' },
+  ].map(({ icon, label }, i) => (
+    <div
+      key={i}
+      className="flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full text-white/80 hover:scale-105 transition duration-300 shadow-md"
+    >
+      <span>{icon}</span>
+      <span>{label}</span>
+    </div>
+  ))}
+</div>
+
 
       {/* Scroll Button */}
       <div className="absolute bottom-6 w-full flex justify-center z-30">
